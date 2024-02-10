@@ -1,35 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react'
 import './App.css'
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar'
+import Header from './components/header/Header'
+import { Button, Icon } from 'semantic-ui-react'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [isCollapsedSidebar, setIsCollapsedSidebar] = React.useState(false)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <main className='main-page-main'>
+      <section>
+        <Sidebar collapsed={isCollapsedSidebar}
+          rootStyles={{
+            height: "100%"
+          }}
+        >
+          <Menu
+            menuItemStyles={{
+              button: {
+                [`&.active`]: {
+                  backgroundColor: '#13395e',
+                  color: '#b6c8d9',
+                },
+              },
+            }}
+          >
+            <MenuItem icon={<Icon name='bars' size='small'/>} onClick={() => setIsCollapsedSidebar(!isCollapsedSidebar)}></MenuItem>
+            <MenuItem icon={<Icon name='home' size='small'/>}> Home </MenuItem>
+            <MenuItem icon={<Icon name='calendar' size='small'/>}> Calendar </MenuItem>
+            <SubMenu label="Boards" icon={<Icon name='table' size='small'/>}>
+              <MenuItem> Board1 </MenuItem>
+            </SubMenu>
+          </Menu>
+        </Sidebar>
+      </section>
+      <section className='main-page-content'>
+        <Header />
+      </section>
+    </main>
   )
+
 }
 
 export default App
